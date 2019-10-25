@@ -9,7 +9,7 @@ namespace calculator
     class Berekeningen
     {
         private List<string> getallenString = new List<string>();
-        private List<int> intString = new List<int>();
+        private List<double> intString = new List<double>();
         private List<Operators> operators = new List<Operators>();
         private string toevoegen = "";
 
@@ -19,6 +19,10 @@ namespace calculator
         }
         public void Operator(string inputOperator)
         {
+            if (getallenString.Count == 0 && toevoegen == "")
+            {
+                getallenString.Add("0");
+            }
             if (inputOperator == "+")
             {
                 operators.Add(Operators.optellen);
@@ -35,7 +39,10 @@ namespace calculator
             {
                 operators.Add(Operators.vermenigvuldigen);
             }
-            getallenString.Add(toevoegen);
+            if (toevoegen != "")
+            {
+                getallenString.Add(toevoegen);
+            }
             toevoegen = "";
         }
 
@@ -43,10 +50,12 @@ namespace calculator
         {
             getallenString.Add(toevoegen);
             toevoegen = "";
-            int returnText = 0;
+            double returnText = 0;
             for (int i = 0; i < getallenString.Count; i++)
             {
-                intString.Add(Convert.ToInt32(getallenString[i]));
+                //intString.Add(Convert.ToInt32(getallenString[i]));
+                double.TryParse(getallenString[i], out double number);
+                intString.Add(number);
             }
             for (int i = 0; i < operators.Count; i++)
             {
@@ -84,6 +93,20 @@ namespace calculator
             operators.Clear();
             toevoegen = "";
             return toevoegen;
+        }
+
+        public string Backspace(string inputText)
+        {
+            string nieuweText = "";
+            if (inputText.Length > 0)
+            {
+                nieuweText = inputText.Remove(inputText.Length - 1);
+            }
+            if (toevoegen.Length > 0)
+            {
+                toevoegen = toevoegen.Remove(toevoegen.Length - 1);
+            }
+            return nieuweText;
         }
     }
 }

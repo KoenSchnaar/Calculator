@@ -44,6 +44,11 @@ namespace calculator
         {
             textBox1.Text = berekeningen.ClearEverything();
         }
+
+        private void buttonBackspace_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = berekeningen.Backspace(textBox1.Text);
+        }
     }
     
 
