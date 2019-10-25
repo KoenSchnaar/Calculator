@@ -73,7 +73,7 @@ namespace calculator
             getallenString.Clear();
             intString.Clear();
             operators.Clear();
-            getallenString.Add(returnText.ToString());
+            toevoegen = returnText.ToString();
             return returnText.ToString();
         }
 
