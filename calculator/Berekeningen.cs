@@ -10,7 +10,7 @@ namespace calculator
     {
         private List<string> getallenString = new List<string>();
         private List<double> intString = new List<double>();
-        private List<Operators> operators = new List<Operators>();
+        private List<OperatorClass> operators = new List<OperatorClass>();
         private string toevoegen = "";
 
         public void Cijfers(string inputCijfer)
@@ -25,19 +25,19 @@ namespace calculator
             }
             if (inputOperator == "+")
             {
-                operators.Add(Operators.optellen);
+                operators.Add(new Optellen());
             }
             else if (inputOperator == "-")
             {
-                operators.Add(Operators.aftrekken);
+                operators.Add(new Aftrekken());
             }
             else if (inputOperator == "/")
             {
-                operators.Add(Operators.delen);
+                operators.Add(new Delen());
             }
             else if (inputOperator == "*")
             {
-                operators.Add(Operators.vermenigvuldigen);
+                operators.Add(new Vermenigvuldigen());
             }
             if (toevoegen != "")
             {
@@ -59,25 +59,8 @@ namespace calculator
             }
             for (int i = 0; i < operators.Count; i++)
             {
-                switch (operators[i])
-                {
-                    case Operators.optellen:
-                        intString[i+1] = intString[i] + intString[i+1];
-                        returnText = intString[i+1];
-                        break;
-                    case Operators.aftrekken:
-                        intString[i+1] = intString[i] - intString[i+1];
-                        returnText = intString[i+1];
-                        break;
-                    case Operators.vermenigvuldigen:
-                        intString[i+1] = intString[i] * intString[i+1];
-                        returnText = intString[i+1];
-                        break;
-                    case Operators.delen:
-                        intString[i+1] = intString[i] / intString[i+1];
-                        returnText = intString[i+1];
-                        break;
-                }
+                intString[i+1] = operators[i].Berekenen(intString[i], intString[i+1]);
+                returnText = intString[i + 1];
             }
             getallenString.Clear();
             intString.Clear();
