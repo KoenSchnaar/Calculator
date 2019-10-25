@@ -49,7 +49,13 @@ namespace calculator
         {
             textBox1.Text = berekeningen.Backspace(textBox1.Text);
         }
-    }
-    
 
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1.PerformClick();
+            }
+        }
+    }
 }
